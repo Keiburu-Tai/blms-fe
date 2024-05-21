@@ -59,6 +59,7 @@ def genrate_midi_and_play_queue():
         recorded_file = record_audio(input_device_index, duration=10, sample_rate=44100)
         if recorded_file:
             url = os.getenv('URL')  # Replace with your server URL
+            url = url + "/process-audio"
             with open(recorded_file, 'rb') as f:
                 files = {'file': f}
                 response = requests.post(url, files=files)
@@ -102,6 +103,7 @@ with st.container():
                 st.session_state["Stop"] = False
                 with st.spinner("initial setting..."):
                     url = os.getenv('URL')  # Replace with your server URL
+                    url = url + "/init-audio"
                     with open("recoded_sample/first.wav", 'rb') as f:
                         files = {'file': f}
                         response = requests.post(url, files=files)
